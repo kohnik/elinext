@@ -4,18 +4,38 @@
 </mat-form-field>
 
 <div class="containerForFoundPhoto">
-  <mat-paginator [length]="10"
-                 [pageSize]="20">
+  <mat-paginator
+    *ngIf="receivedPhotos"
+                [length]="10"
+                 [pageSize]=responceFlickr.pages>
   </mat-paginator>
 
   <div *ngIf="receivedPhotos">
     <div class="containerForFoundPhoto__foundPhoto" >
       <ul >
-        <li *ngFor="let photo of receivedPhotos.photos.photo">
-          <img  [src]="'https://live.staticflickr.com/' + photo.server + '/'+ photo.id + '_' +photo.secret  +'.jpg'" >
+        <li  *ngFor="let photo of receivedPhotos">
+          <mat-card class="example-card" >
+            <img mat-card-image [src]="'https://live.staticflickr.com/' + photo.server + '/'+ photo.id + '_' +photo.secret  +'.jpg'" alt="Photo of a Shiba Inu">
+            <mat-card-content>
+              title
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button color="primary" (click)="addToBookmark(photo)">Bookmark it</button>
+            </mat-card-actions>
+          </mat-card>
+
+
         </li>
       </ul>
     </div>
+
   </div>
+  <div
+    class="search-results"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+  ></div>
   </div>
 

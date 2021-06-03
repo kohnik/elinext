@@ -5,6 +5,7 @@ import {BookmarksComponent} from "./photos/bookmarks/bookmarks.component";
 
 const routes: Routes = [
   { path: '', component: SearchPhotosComponent },
+  { path: 'bookmark', component: BookmarksComponent },
 ];
 
 @NgModule({

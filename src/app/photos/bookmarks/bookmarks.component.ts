@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {DataForBookmarkPhoto} from "../../shared/interface";
 
 @Component({
   selector: 'app-bookmarks',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bookmarks.component.scss']
 })
 export class BookmarksComponent implements OnInit {
-
+  dataForBookmarkPhoto!:DataForBookmarkPhoto[]
   constructor() { }
 
   ngOnInit(): void {
-  }
 
+    this.dataForBookmarkPhoto = JSON.parse(localStorage.getItem('bookmarks') as string)
+    console.log(  this.dataForBookmarkPhoto)
+  }
 }

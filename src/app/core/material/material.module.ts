@@ -5,13 +5,15 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from "@angular/material/input";
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatCardModule} from '@angular/material/card';
 const material = [
   MatButtonModule,
   MatIconModule,
   MatToolbarModule,
   MatFormFieldModule,
   MatInputModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatCardModule
 ]
 
 @NgModule({

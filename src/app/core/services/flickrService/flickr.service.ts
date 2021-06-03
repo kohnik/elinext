@@ -9,13 +9,16 @@ import {urlForFlckrReq} from "../../../shared/constants";
   providedIn: 'root'
 })
 export class FlickrService {
+  page = 1
 
   constructor(private http: HttpClient) {
   }
 
-  getPhoto(req: string)
+  getPhoto(req: string, page: number)
   {
-        const params = `api_key=${environment.flickr.key}&text=${req}&format=json&nojsoncallback=1&per_page=20&page=10`
+
+    this.page+= page;
+        const params = `api_key=${environment.flickr.key}&text=${req}&format=json&nojsoncallback=1&per_page=20&page=${this.page}`
         return this.http.get(urlForFlckrReq+params)
   }
 }

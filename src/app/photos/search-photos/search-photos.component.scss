@@ -5,20 +5,21 @@
 
 }
 ul {
-  column-count: 3;
-  column-gap: 20px;
-  text-align:justify;
-}
-ul li {
-  width: 100%;
-  margin-bottom: 20px;
-  overflow: hidden;
+  column-count: 4;
+  column-gap: 29px;
+
 }
 
-ul li  img,
-ul li  {
-  width: inherit;
-}
+
 ul li {
   display: block;
+  width: 100%;
+  margin-bottom: 36px;
+  padding: 10px;
+  overflow: hidden;
 }
+ul li>button{
+  width: 100%;
+}
+
+

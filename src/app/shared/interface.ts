@@ -22,3 +22,9 @@ export interface FleckrResponse
   photos: FlickrPhotos
   stat:string;
 }
+export interface DataForBookmarkPhoto
+{
+  server: string,
+  secret: string,
+  id: string,
+}
