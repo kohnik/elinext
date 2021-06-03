@@ -4,3 +4,21 @@
   width: 86vw;
 
 }
+ul {
+  column-count: 3;
+  column-gap: 20px;
+  text-align:justify;
+}
+ul li {
+  width: 100%;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+ul li  img,
+ul li  {
+  width: inherit;
+}
+ul li {
+  display: block;
+}

@@ -8,6 +8,9 @@ import {MaterialModule} from './core/material/material.module';
 import { AsideMenuComponent } from './shared/aside-menu/aside-menu.component';
 import { SearchPhotosComponent } from './photos/search-photos/search-photos.component';
 import { BookmarksComponent } from './photos/bookmarks/bookmarks.component'
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,12 +18,16 @@ import { BookmarksComponent } from './photos/bookmarks/bookmarks.component'
     AsideMenuComponent,
     SearchPhotosComponent,
     BookmarksComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
-<mat-form-field appearance="fill" class="containerForSearchPhoto">
+<mat-form-field [formGroup]="reactiveSearchForm" appearance="fill" class="containerForSearchPhoto"  >
   <mat-label class="containerForSearchPhoto__label">Search photo</mat-label>
-  <input class="containerForSearchPhoto__input" matInput>
+  <input type="search" class="containerForSearchPhoto__input" matInput formControlName="inputSearch"  >
 </mat-form-field>
 
 <div class="containerForFoundPhoto">
@@ -8,7 +8,14 @@
                  [pageSize]="20">
   </mat-paginator>
 
-  <div class="containerForFoundPhoto__foundPhoto">
-
+  <div *ngIf="receivedPhotos">
+    <div class="containerForFoundPhoto__foundPhoto" >
+      <ul >
+        <li *ngFor="let photo of receivedPhotos.photos.photo">
+          <img  [src]="'https://live.staticflickr.com/' + photo.server + '/'+ photo.id + '_' +photo.secret  +'.jpg'" >
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
+  </div>
+
