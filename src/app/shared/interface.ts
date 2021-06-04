@@ -8,7 +8,27 @@ export interface FlickrPhoto {
   secret: string;
   server: string;
   title: string;
+  photo: PhotoTags;
 }
+export  interface PhotoTags
+{
+  id:string;
+  tags: Tags
+}
+export  interface Tags
+{
+  tag:TagInfo[]
+}
+export  interface TagInfo
+{
+  author: string;
+  authorname: string;
+  id: string;
+  machine_tag:boolean;
+  raw:string;
+  _content:string
+}
+
 export interface FlickrPhotos {
   page: number;
   pages: number;

@@ -11,7 +11,6 @@ import { BookmarksComponent } from './photos/bookmarks/bookmarks.component'
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { InfiniteScrollModule} from "ngx-infinite-scroll";
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +28,7 @@ import { InfiniteScrollModule} from "ngx-infinite-scroll";
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,11 +4,10 @@
 </mat-form-field>
 
 <div class="containerForFoundPhoto">
-  <mat-paginator
-    *ngIf="receivedPhotos"
-                [length]="10"
-                 [pageSize]=responceFlickr.pages>
-  </mat-paginator>
+  <div class="countPhotos"
+    *ngIf="receivedPhotos">
+    <span>Count images: {{responceFlickr.total}}</span>
+  </div>
 
   <div *ngIf="receivedPhotos">
     <div class="containerForFoundPhoto__foundPhoto" >
@@ -16,15 +15,14 @@
         <li  *ngFor="let photo of receivedPhotos">
           <mat-card class="example-card" >
             <img mat-card-image [src]="'https://live.staticflickr.com/' + photo.server + '/'+ photo.id + '_' +photo.secret  +'.jpg'" alt="Photo of a Shiba Inu">
-            <mat-card-content>
-              title
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-raised-button color="primary" (click)="addToBookmark(photo)">Bookmark it</button>
-            </mat-card-actions>
+            <div *ngIf="photo.photo.tags.tag.length > 1">
+              <strong>Tags:</strong>
+              <span class="containerForFoundPhoto__tag" *ngFor="let tag of photo.photo.tags.tag">
+               {{tag._content }}
+              </span>
+            </div>
+            <button mat-raised-button color="primary" (click)="addToBookmark(photo)">Bookmark it</button>
           </mat-card>
-
-
         </li>
       </ul>
     </div>

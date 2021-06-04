@@ -30,13 +30,9 @@ export class SearchPhotosComponent implements OnInit {
       switchMap((req) => this.photoService.getPhoto(req,1) ))
       .subscribe(data =>
       {
-        // @ts-ignore
-       this.responceFlickr = data.photos;
-        // @ts-ignore
-          this.receivedPhotos = data.photos.photo
-
-
-
+        console.log(data)
+        this.responceFlickr = data.photos;
+        this.receivedPhotos = data.photos.photo
       })
   }
 
@@ -44,18 +40,9 @@ export class SearchPhotosComponent implements OnInit {
     this.photoService.getPhoto(this.reactiveSearchForm.value.inputSearch,10)
       .subscribe(data =>
       {
-        // @ts-ignore
         this.responceFlickr = data.photos;
-        if(this.receivedPhotos)
-        {
-          // @ts-ignore
-          this.receivedPhotos=   this.receivedPhotos.concat(data.photos.photo)
-        }
-        else
-        {
-          // @ts-ignore
-          this.receivedPhotos = data.photos.photo
-        }
+        this.receivedPhotos= data.photos.photo.concat(this.receivedPhotos)
+
       })
   }
   addToBookmark(photo: FlickrPhoto)

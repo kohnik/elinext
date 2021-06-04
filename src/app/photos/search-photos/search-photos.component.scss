@@ -4,22 +4,44 @@
   width: 86vw;
 
 }
+.containerForFoundPhoto
+{
+  &__tag
+  {
+    background: burlywood;
+    margin: 5px;
+    border-radius: 20px;
+    padding: 2px;
+    font-size: 13px;
+  }
+}
 ul {
   column-count: 4;
   column-gap: 29px;
 
 }
 
-
 ul li {
-  display: block;
+  display: inline-block;
   width: 100%;
   margin-bottom: 36px;
   padding: 10px;
-  overflow: hidden;
 }
 ul li>button{
   width: 100%;
+}
+
+.countPhotos
+{
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  justify-content: flex-end;
+  padding: 0 100px;
+  &>span
+  {
+    opacity: 50%;
+  }
 }
 
 

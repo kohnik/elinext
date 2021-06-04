@@ -11,8 +11,12 @@ export class BookmarksComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
     this.dataForBookmarkPhoto = JSON.parse(localStorage.getItem('bookmarks') as string)
-    console.log(  this.dataForBookmarkPhoto)
+  }
+
+  deleteImage(photo:DataForBookmarkPhoto)
+  {
+    this.dataForBookmarkPhoto = this.dataForBookmarkPhoto.filter(item => item.id !== photo.id)
+    localStorage.setItem('bookmarks', JSON.stringify(this.dataForBookmarkPhoto))
   }
 }
