@@ -9,6 +9,12 @@ export interface FlickrPhoto {
   server: string;
   title: string;
   photo: PhotoTags;
+  tag:TagInfo[]
+}
+export  interface TagsResponce
+{
+  photo: PhotoTags;
+  stat:string
 }
 export  interface PhotoTags
 {

@@ -14,10 +14,10 @@
       <ul >
         <li  *ngFor="let photo of receivedPhotos">
           <mat-card class="example-card" >
-            <img mat-card-image [src]="'https://live.staticflickr.com/' + photo.server + '/'+ photo.id + '_' +photo.secret  +'.jpg'" alt="Photo of a Shiba Inu">
-            <div *ngIf="photo.photo.tags.tag.length > 1">
+            <img (load)="dosomething()" mat-card-image [src]="'https://live.staticflickr.com/' + photo.server + '/'+ photo.id + '_' +photo.secret +'.jpg'" alt="Photo of a Shiba Inu">
+            <div *ngIf="photo.tag.length > 1">
               <strong>Tags:</strong>
-              <span class="containerForFoundPhoto__tag" *ngFor="let tag of photo.photo.tags.tag">
+              <span class="containerForFoundPhoto__tag" *ngFor="let tag of photo.tag">
                {{tag._content }}
               </span>
             </div>
@@ -28,11 +28,15 @@
     </div>
 
   </div>
+
+  <div *ngIf="!receivedPhotos" class="noImageMessageContainer">
+    <span> No image here. Would you try to search for anything else?</span>
+  </div>
   <div
     class="search-results"
     infiniteScroll
     [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="50"
+    [infiniteScrollThrottle]="2"
     (scrolled)="onScroll()"
   ></div>
   </div>

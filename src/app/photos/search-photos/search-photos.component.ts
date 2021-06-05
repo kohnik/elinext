@@ -13,7 +13,7 @@ export class SearchPhotosComponent implements OnInit {
   reactiveSearchForm: FormGroup;
   responceFlickr!: FlickrPhotos
   receivedPhotos!: FlickrPhoto[];
-
+    okey = false
   constructor(private formBuilder: FormBuilder,
               public photoService: FlickrService) {
     this.reactiveSearchForm = this.formBuilder.group({
@@ -32,16 +32,19 @@ export class SearchPhotosComponent implements OnInit {
       {
         console.log(data)
         this.responceFlickr = data.photos;
+
         this.receivedPhotos = data.photos.photo
       })
   }
 
   onScroll() {
-    this.photoService.getPhoto(this.reactiveSearchForm.value.inputSearch,10)
+    console.log(1)
+    this.photoService.getPhoto(this.reactiveSearchForm.value.inputSearch,1)
       .subscribe(data =>
       {
+        console.log(data)
         this.responceFlickr = data.photos;
-        this.receivedPhotos= data.photos.photo.concat(this.receivedPhotos)
+        this.receivedPhotos= this.receivedPhotos.concat(data.photos.photo)
 
       })
   }
@@ -65,5 +68,12 @@ export class SearchPhotosComponent implements OnInit {
       }]
       localStorage.setItem('bookmarks',`${JSON.stringify(dataForBookmarkPhotos)}`)
     }
+  }
+
+  dosomething()
+  {
+    var i = 0;
+    i+=1;
+    this.okey = i === 20
   }
 }

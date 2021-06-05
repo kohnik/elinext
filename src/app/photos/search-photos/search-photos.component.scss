@@ -1,7 +1,7 @@
 .containerForSearchPhoto
 {
   margin: 20px 0 20px 20px;
-  width: 86vw;
+  width: 30vw;
 
 }
 .containerForFoundPhoto
@@ -41,6 +41,14 @@ ul li>button{
   &>span
   {
     opacity: 50%;
+  }
+}
+.noImageMessageContainer
+{
+  &>span
+  {
+    font-size: 20px;
+    margin-left: 50px;
   }
 }
 
