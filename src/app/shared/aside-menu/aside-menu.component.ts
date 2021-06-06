@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
-import {filter} from "rxjs/operators";
+import {ActivatedRoute, Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-aside-menu',
@@ -12,16 +12,16 @@ export class AsideMenuComponent implements OnInit {
   styleForAsideButton!: string
 
   constructor(private router: Router,
-              public route: ActivatedRoute) {
-    this.router.events.pipe(filter((event)=> event instanceof NavigationEnd)).subscribe((data)=>{
-      this.currentRoute = data
-      this.styleForAsideButton = this.currentRoute.url === '/bookmark' ? 'SavedPhoto' : 'Search';
-    })
-
+              public route: ActivatedRoute
+           ) {
   }
 
   ngOnInit(): void {
-
+      this.styleForAsideButton = this.router.url === '/bookmark'  ? 'SavedPhoto' : 'Search';
+  }
+  changeStyleThemeForButton()
+  {
+    this.styleForAsideButton =  this.styleForAsideButton === 'Search' ? 'SavedPhoto' : 'Search'
   }
 
 }

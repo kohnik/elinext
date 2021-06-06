@@ -13,8 +13,8 @@
     <div class="containerForFoundPhoto__foundPhoto" >
       <ul >
         <li  *ngFor="let photo of receivedPhotos">
-          <mat-card class="example-card" >
-            <img (load)="dosomething()" mat-card-image [src]="'https://live.staticflickr.com/' + photo.server + '/'+ photo.id + '_' +photo.secret +'.jpg'" alt="Photo of a Shiba Inu">
+          <mat-card class="example-card {{toDispalyImageStyle}}"  >
+            <img (load)="toLoadImage()" mat-card-image [src]="'https://live.staticflickr.com/' + photo.server + '/'+ photo.id + '_' +photo.secret +'.jpg'" alt="Photo of a Shiba Inu">
             <div *ngIf="photo.tag.length > 1">
               <strong>Tags:</strong>
               <span class="containerForFoundPhoto__tag" *ngFor="let tag of photo.tag">

@@ -16,13 +16,23 @@ ul {
 
 
 ul li {
-  display: block;
+  display: inline-block;
   width: 100%;
   margin-bottom: 36px;
   padding: 10px;
 }
 
-div
+.mainBookmarkContainer
 {
-  height: 100vh;
+  height: 85vh;
+  &__noImageMessageContainer
+  {
+    margin: 50px 0 0 100px;
+    box-sizing: border-box;
+  }
+  &__noImageMessage
+  {
+    font-size: 20px;
+  }
 }
+

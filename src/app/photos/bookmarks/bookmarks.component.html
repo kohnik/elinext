@@ -1,4 +1,9 @@
-<div>
+<div class="mainBookmarkContainer">
+
+  <div class="mainBookmarkContainer__noImageMessageContainer" *ngIf="!dataForBookmarkPhoto">
+    <span class="mainBookmarkContainer__noImageMessage"> No image here. Would you try to search for anything else?</span>
+  </div>
+
   <ul >
     <li *ngFor="let photo of dataForBookmarkPhoto">
       <mat-card class="example-card" >

@@ -11,6 +11,15 @@ import { BookmarksComponent } from './photos/bookmarks/bookmarks.component'
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { InfiniteScrollModule} from "ngx-infinite-scroll";
+import { AuthCardComponent } from './auth/auth-card/auth-card.component';
+import { AuthCardSigninComponent } from './auth/auth-card-signin/auth-card-signin.component';
+import { AuthCardSignupComponent } from './auth/auth-card-signup/auth-card-signup.component';
+import {AngularFireAuthModule} from "@angular/fire/auth";
+import {AngularFireDatabaseModule} from "@angular/fire/database";
+import {AngularFireModule} from "@angular/fire";
+import {environment} from "../environments/environment";
+import {AuthGuard} from "./core/guards/guardAuth/auth.guard";
+import {MainGuard} from "./core/guards/guardMain/main.guard";
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,10 +27,14 @@ import { InfiniteScrollModule} from "ngx-infinite-scroll";
     AsideMenuComponent,
     SearchPhotosComponent,
     BookmarksComponent,
+    AuthCardComponent,
+    AuthCardSigninComponent,
+    AuthCardSignupComponent,
 
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp( environment.firebaseConfig),
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
@@ -29,8 +42,10 @@ import { InfiniteScrollModule} from "ngx-infinite-scroll";
     ReactiveFormsModule,
     HttpClientModule,
     InfiniteScrollModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [AuthGuard,MainGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

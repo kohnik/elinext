@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {debounceTime, distinctUntilChanged, filter, switchMap} from "rxjs/operators";
 import {FlickrService} from "../../core/services/flickrService/flickr.service";
-import {DataForBookmarkPhoto, FleckrResponse, FlickrPhoto, FlickrPhotos} from "../../shared/interface";
+import {DataForBookmarkPhoto, FlickrPhoto, FlickrPhotos} from "../../shared/interface";
+import {BookmarkDataService} from "../../core/services/bookmarkDatabaseService/bookmark-data.service";
+import {AuthService} from "../../core/services/authService/auth.service";
+import {Subscription} from "rxjs";
+import {differenceBetweenEntryAndNowTime, startOutTimeActivity} from "../../shared/constants";
 
 @Component({
   selector: 'app-search-photo',
@@ -13,16 +17,30 @@ export class SearchPhotosComponent implements OnInit {
   reactiveSearchForm: FormGroup;
   responceFlickr!: FlickrPhotos
   receivedPhotos!: FlickrPhoto[];
-    okey = false
+  toDispalyImageStyle!:string
+  countForLoadImage = 0
+  subscriptionForStartActivity!: Subscription
+  subscriptionForDifferenceActivity!: Subscription
   constructor(private formBuilder: FormBuilder,
-              public photoService: FlickrService) {
+              public photoService: FlickrService,
+              public  bookmarkService: BookmarkDataService,
+              public authService: AuthService) {
     this.reactiveSearchForm = this.formBuilder.group({
       inputSearch: new FormControl('')
     })
 
   }
-
   ngOnInit(): void {
+    this.subscriptionForStartActivity = startOutTimeActivity().subscribe()
+    this.subscriptionForDifferenceActivity = differenceBetweenEntryAndNowTime().subscribe(()=>{
+      const entryTime = new Date().getTime()
+      if( entryTime - JSON.parse(<string>localStorage.getItem('entryTime')) > 20000)
+      {
+        this.authService.logout()
+      }
+    })
+
+
     this.reactiveSearchForm.get('inputSearch')?.valueChanges.pipe(
       filter(req => req.length > 1),
       distinctUntilChanged(),
@@ -37,8 +55,10 @@ export class SearchPhotosComponent implements OnInit {
       })
   }
 
+
+
   onScroll() {
-    console.log(1)
+
     this.photoService.getPhoto(this.reactiveSearchForm.value.inputSearch,1)
       .subscribe(data =>
       {
@@ -50,30 +70,31 @@ export class SearchPhotosComponent implements OnInit {
   }
   addToBookmark(photo: FlickrPhoto)
   {
-    let dataForBookmarkPhotos:DataForBookmarkPhoto[];
-    if(localStorage.getItem('bookmarks'))
-    {
-      dataForBookmarkPhotos =[{
-        server: photo.server,
-        secret: photo.secret,
-        id: photo.id
-      },...JSON.parse((localStorage.getItem('bookmarks') as string))]
-      localStorage.setItem('bookmarks',`${JSON.stringify(dataForBookmarkPhotos)}`)
+    let dataForBookmarkPhotos:DataForBookmarkPhoto;
+    dataForBookmarkPhotos ={
+      server: photo.server,
+      secret: photo.secret,
+      id: photo.id,
+      email: this.authService.currentUserEmailForReq,
+      idImageForDatabase: ''
     }
-    else {
-      dataForBookmarkPhotos =[{
-        server: photo.server,
-        secret: photo.secret,
-        id: photo.id
-      }]
-      localStorage.setItem('bookmarks',`${JSON.stringify(dataForBookmarkPhotos)}`)
+    this.bookmarkService.addImage(dataForBookmarkPhotos).subscribe()
+
+  }
+
+  toLoadImage()
+  {
+    this.countForLoadImage++;
+    if(this.countForLoadImage === 20)
+    {
+      this.toDispalyImageStyle = 'visible'
+      this.countForLoadImage = 0
     }
   }
 
-  dosomething()
+  ngOnDestroy()
   {
-    var i = 0;
-    i+=1;
-    this.okey = i === 20
+    this.subscriptionForStartActivity.unsubscribe()
+    this.subscriptionForDifferenceActivity.unsubscribe()
   }
 }

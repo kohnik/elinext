@@ -24,6 +24,8 @@ chrome-profiler-events*.json
 
 # IDE - VSCode
 .vscode/*
+firebase-debug.log
+firebase-debug.*.log
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json

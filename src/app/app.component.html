@@ -1,9 +1,7 @@
 <app-header></app-header>
 <div class="body">
-  <app-aside-menu class="body__asideMenu"></app-aside-menu>
+  <app-aside-menu *ngIf="authService.isLoggedIn" class="body__asideMenu"></app-aside-menu>
   <router-outlet class="body__photo"></router-outlet>
 </div>
 
-<div *ngIf="styleForWaitingMode" class="{{styleForWaitingMode}}">
-  <span> You are was in not activity one minutes. Please, wiggle your mouse, that will to continue using this app </span>
-</div>
+

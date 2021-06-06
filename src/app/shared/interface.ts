@@ -53,4 +53,6 @@ export interface DataForBookmarkPhoto
   server: string,
   secret: string,
   id: string,
+  email:string,
+  idImageForDatabase: string,
 }
