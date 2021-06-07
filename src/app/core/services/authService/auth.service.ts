@@ -2,25 +2,25 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import {Observable, of, Subscription} from 'rxjs';
 import { map } from 'rxjs/operators';
+import {differenceBetweenEntryAndNowTime, startOutTimeActivity} from "../../../shared/constants";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   public googleProvider = new firebase.auth.GoogleAuthProvider();
-  public isLoggedIn = false;
   public displaySignInOrOn = false;
-  public currentUserEmailForReq!: string;
-
+  public currentUserUIDForReq!: string;
+  public subscriptionForStartActivity!: Subscription;
+  public subscriptionForDifferenceActivity!: Subscription;
   constructor(public firebaseAuth: AngularFireAuth, public router: Router) {}
 
   signup(email: string, password: string): Promise<void> {
     return this.firebaseAuth
       .createUserWithEmailAndPassword(email, password)
-      .then((rez) => {
-        this.isLoggedIn = true;
+      .then(() => {
         this.router.navigate(['search']);
       });
   }
@@ -28,8 +28,7 @@ export class AuthService {
   signin(email: string, password: string): Promise<void> {
     return this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
-      .then((rez: any) => {
-        this.isLoggedIn = true;
+      .then(() => {
         this.router.navigate(['search']);
       });
   }
@@ -40,7 +39,6 @@ export class AuthService {
 
   authLogin(provider: any): Promise<void> {
     return this.firebaseAuth.signInWithPopup(provider).then(() => {
-      this.isLoggedIn = true;
       this.router.navigate(['search']);
     });
   }
@@ -52,14 +50,27 @@ export class AuthService {
         this.router.navigate(['']);
       })
       .then(() => {
-        this.isLoggedIn = false;
+        this.subscriptionForStartActivity.unsubscribe();
+        this.subscriptionForDifferenceActivity.unsubscribe();
+        this.currentUserUIDForReq='';
       });
   }
 
   checkAuth(): Observable<firebase.User | null> {
     return this.firebaseAuth.authState.pipe(
       map((req) => {
-        this.currentUserEmailForReq = req?.email?.replace('.', '_') || '';
+        if(req)
+        {
+          this.currentUserUIDForReq = req.uid?.replace('.', '_') || '';
+          this.subscriptionForStartActivity = startOutTimeActivity().subscribe();
+          this.subscriptionForDifferenceActivity =
+            differenceBetweenEntryAndNowTime().subscribe(() => {
+              let entryTime = new Date().getTime();
+              if (entryTime - JSON.parse(<string>localStorage.getItem('userActivity')) > 60000) {
+                this.logout();
+              }
+            });
+        }
         return req;
       })
     );

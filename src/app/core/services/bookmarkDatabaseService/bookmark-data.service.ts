@@ -14,14 +14,14 @@ export class BookmarkDataService {
 
   addImage(dataForBookmarkPhotos: DataForBookmarkPhoto):Observable<PostImage>{
     return this.http.post(
-      `${urlForBookmarkDatabase}${this.authService.currentUserEmailForReq}.json`,
+      `${urlForBookmarkDatabase}${this.authService.currentUserUIDForReq}.json`,
       dataForBookmarkPhotos) as Observable<PostImage>
   }
 
   getImages():Observable<FleckrResponse> {
     return this.http
       .get(
-        `${urlForBookmarkDatabase}${this.authService.currentUserEmailForReq}.json`
+        `${urlForBookmarkDatabase}${this.authService.currentUserUIDForReq}.json`
       )
       .pipe(
         map((images) => {
@@ -35,7 +35,7 @@ export class BookmarkDataService {
 
   deleteImage(image: DataForBookmarkPhoto):Observable<PostImage> {
     return this.http.delete(
-      `${urlForBookmarkDatabase}${this.authService.currentUserEmailForReq}/${image.idImageForDatabase}.json`
+      `${urlForBookmarkDatabase}${this.authService.currentUserUIDForReq}/${image.idImageForDatabase}.json`
     ) as Observable<PostImage>
   }
 }

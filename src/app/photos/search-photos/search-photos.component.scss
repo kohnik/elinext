@@ -13,6 +13,17 @@
     padding: 2px;
     font-size: 13px;
   }
+  &__CardFooter
+  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &>mat-label
+    {
+      color: green;
+      font-size: 20px;
+    }
+  }
 }
 ul {
   column-count: 4;

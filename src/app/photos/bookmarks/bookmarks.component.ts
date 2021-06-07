@@ -22,8 +22,7 @@ import { AuthService } from '../../core/services/authService/auth.service';
 })
 export class BookmarksComponent implements OnInit {
   dataForBookmarkImages!: DataForBookmarkPhoto[];
-  subscriptionForStartActivity!: Subscription;
-  subscriptionForDifferenceActivity!: Subscription;
+
   timeLastActivity = new Date().getTime();
 
   constructor(
@@ -35,16 +34,6 @@ export class BookmarksComponent implements OnInit {
     this.bookmarkService.getImages().subscribe((data) => {
       this.dataForBookmarkImages = Object.values(data);
     });
-    this.subscriptionForStartActivity = startOutTimeActivity().subscribe(
-      (data) => (this.timeLastActivity = data)
-    );
-    this.subscriptionForDifferenceActivity =
-      differenceBetweenEntryAndNowTime().subscribe(() => {
-        let entryTime = new Date().getTime();
-        if (entryTime - this.timeLastActivity > 5000) {
-          this.authService.logout();
-        }
-      });
   }
 
   deleteImage(image: DataForBookmarkPhoto) {
@@ -56,8 +45,5 @@ export class BookmarksComponent implements OnInit {
       .subscribe((data) => console.log(data));
   }
 
-  ngOnDestroy() {
-    this.subscriptionForStartActivity.unsubscribe();
-    this.subscriptionForDifferenceActivity.unsubscribe();
-  }
+
 }

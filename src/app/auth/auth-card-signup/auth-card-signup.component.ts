@@ -33,7 +33,7 @@ export class AuthCardSignupComponent{
         .catch((error) => {
           this.authEror = error.message;
         });
-      if (!this.authService.isLoggedIn) {
+      if (!this.authService.currentUserUIDForReq) {
         if (!patternForEmail.test(this.myForm.value.userEmail)) {
           this.mistakeValidEmail = true;
         }

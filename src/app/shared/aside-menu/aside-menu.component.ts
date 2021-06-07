@@ -19,6 +19,7 @@ export class AsideMenuComponent implements OnInit {
 
   changeStyleThemeForButton(): void {
     this.styleForAsideButton =
-      this.styleForAsideButton === 'Search' ? 'SavedPhoto' : 'Search';
+      this.router.url === '/bookmark' ? 'Search' : 'SavedPhoto'
   }
 }
+

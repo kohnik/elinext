@@ -9,13 +9,19 @@ export const urlForBookmarkDatabase =
   'https://elinext-cd314-default-rtdb.firebaseio.com/bookmarks/';
 
 export const startOutTimeActivity = () => {
+
   const keyEvents = fromEvent(document, 'keydown');
   const scrollEvents = fromEvent(document, 'wheel', { capture: true });
   const mousemoveEvents = fromEvent(document, 'mousemove');
   const allEvents = merge(scrollEvents, mousemoveEvents, keyEvents);
-  return allEvents.pipe(map((data) => new Date().getTime()));
+  return allEvents.pipe(
+    map((data) => {
+      localStorage.setItem('userActivity',`${new Date().getTime()}`)
+      return data
+    })
+  );
 };
 
 export const differenceBetweenEntryAndNowTime = () => {
-  return timer(0, 20000).pipe(auditTime(20000));
+  return timer(0, 10000).pipe(auditTime(20000));
 };

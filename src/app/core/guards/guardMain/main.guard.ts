@@ -27,7 +27,6 @@ export class MainGuard implements CanActivate {
     return this.authService.checkAuth().pipe(
       map((data) => {
         if (!!data) {
-          this.authService.isLoggedIn = true;
           return !!data;
         }
         return !data;

@@ -9,7 +9,8 @@ export interface FlickrPhoto {
   server: string;
   title: string;
   photo: PhotoTags;
-  tag:TagInfo[]
+  tag:TagInfo[];
+  inBookmark: boolean
 }
 export  interface TagsResponce
 {
