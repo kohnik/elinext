@@ -5,16 +5,19 @@
 
 <div class="containerForFoundPhoto">
   <div class="countPhotos"
-    *ngIf="receivedPhotos">
+    *ngIf="receivedImages">
     <span>Count images: {{responceFlickr.total}}</span>
   </div>
 
-  <div *ngIf="receivedPhotos">
+  <div *ngIf="receivedImages">
     <div class="containerForFoundPhoto__foundPhoto" >
       <ul >
-        <li  *ngFor="let photo of receivedPhotos">
-          <mat-card class="example-card {{toDispalyImageStyle}}"  >
-            <img (load)="toLoadImage()" mat-card-image [src]="'https://live.staticflickr.com/' + photo.server + '/'+ photo.id + '_' +photo.secret +'.jpg'" alt="Photo of a Shiba Inu">
+        <li  *ngFor="let photo of receivedImages">
+<!--          <mat-card class="example-card {{toDispalyImageStyle}}"  >-->
+          <mat-card class="example-card"  >
+            <mat-label>{{photo.title}}</mat-label>
+<!--            <img (load)="toLoadImage()" mat-card-image [src]="'https://live.staticflickr.com/' + photo.server + '/'+ photo.id + '_' +photo.secret +'.jpg'" alt="Photo of a Shiba Inu">-->
+            <img mat-card-image [src]="'https://live.staticflickr.com/' + photo.server + '/'+ photo.id + '_' +photo.secret +'.jpg'" alt="Photo of a Shiba Inu">
             <div *ngIf="photo.tag.length > 1">
               <strong>Tags:</strong>
               <span class="containerForFoundPhoto__tag" *ngFor="let tag of photo.tag">
@@ -29,7 +32,7 @@
 
   </div>
 
-  <div *ngIf="!receivedPhotos" class="noImageMessageContainer">
+  <div *ngIf="!receivedImages" class="noImageMessageContainer">
     <span> No image here. Would you try to search for anything else?</span>
   </div>
   <div

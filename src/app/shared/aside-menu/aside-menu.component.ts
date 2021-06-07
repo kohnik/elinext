@@ -1,27 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-aside-menu',
   templateUrl: './aside-menu.component.html',
-  styleUrls: ['./aside-menu.component.scss']
+  styleUrls: ['./aside-menu.component.scss'],
 })
 export class AsideMenuComponent implements OnInit {
   currentRoute!: any;
-  styleForAsideButton!: string
+  styleForAsideButton!: string;
 
-  constructor(private router: Router,
-              public route: ActivatedRoute
-           ) {
-  }
+  constructor(private router: Router, public route: ActivatedRoute) {}
 
   ngOnInit(): void {
-      this.styleForAsideButton = this.router.url === '/bookmark'  ? 'SavedPhoto' : 'Search';
-  }
-  changeStyleThemeForButton()
-  {
-    this.styleForAsideButton =  this.styleForAsideButton === 'Search' ? 'SavedPhoto' : 'Search'
+    this.styleForAsideButton =
+      this.router.url === '/bookmark' ? 'SavedPhoto' : 'Search';
   }
 
+  changeStyleThemeForButton(): void {
+    this.styleForAsideButton =
+      this.styleForAsideButton === 'Search' ? 'SavedPhoto' : 'Search';
+  }
 }

@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
+import { FormGroup, FormControl} from '@angular/forms';
+import { patternForEmail, patternForPassword } from '../../shared/constants';
+import { AuthService } from '../../core/services/authService/auth.service';
 
-import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {patternForEmail, patternForPassword} from '../../shared/constants';
-import {AuthService} from "../../core/services/authService/auth.service";
 @Component({
   selector: 'app-auth-card-signin',
   templateUrl: './auth-card-signin.component.html',
   styleUrls: ['./auth-card-signin.component.scss'],
 })
-export class AuthCardSigninComponent implements OnInit {
+export class AuthCardSigninComponent {
   myForm: FormGroup = new FormGroup({
     userPassword: new FormControl(),
     userEmail: new FormControl(),
@@ -17,24 +16,22 @@ export class AuthCardSigninComponent implements OnInit {
   authEror = '';
   mistakeValidEmail = false;
   mistakeValidPass = false;
+
   constructor(public authService: AuthService) {}
+
   onSignip(): void {
-    console.log(    patternForPassword.test(this.myForm.value.userPassword))
-    console.log(this.myForm.value.userPassword)
+    this.chooseValueMistakeEmail()
+    this.chooseValueMistakePass()
     if (
       patternForEmail.test(this.myForm.value.userEmail) &&
       patternForPassword.test(this.myForm.value.userPassword)
     ) {
-
-      this.authService.signin(
-        this.myForm.value.userEmail,
-        this.myForm.value.userPassword
-      ).then(()=>
-      {
-
-      }).catch((error) => {
-        this.authEror = error.message;
-      });
+      this.authService
+        .signin(this.myForm.value.userEmail, this.myForm.value.userPassword)
+        .then(() => {})
+        .catch((error) => {
+          this.authEror = error.message;
+        });
       if (!this.authService.isLoggedIn) {
         if (!patternForEmail.test(this.myForm.value.userEmail)) {
           this.mistakeValidEmail = true;
@@ -43,8 +40,7 @@ export class AuthCardSigninComponent implements OnInit {
           this.mistakeValidPass = true;
         }
       }
-    }
-    else{
+    } else {
       this.mistakeValidEmail = true;
       this.mistakeValidPass = true;
     }
@@ -54,13 +50,11 @@ export class AuthCardSigninComponent implements OnInit {
     this.mistakeValidEmail = false;
     this.authEror = '';
   }
+
   chooseValueMistakePass(): void {
     this.mistakeValidPass = false;
     this.authEror = '';
   }
 
-  ngOnInit(): void {
-    this.chooseValueMistakeEmail();
-    this.chooseValueMistakePass();
-  }
+
 }

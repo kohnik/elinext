@@ -7,16 +7,15 @@
     <app-auth-card-signup
       *ngIf="!authService.displaySignInOrOn"
     ></app-auth-card-signup>
-    <div *ngIf="errorStatus" class="alert alert-danger">
+    <div *ngIf="errorStatus" >
       {{errorMessage}}
     </div>
     <div class="container__ChooseLoginGroup">
-      <span  class="container__title">Войдите с помощью</span>
+      <span  class="container__title">Entry with help</span>
       <div >
         <button
           mat-button
           type="button"
-          class="btn btn-secondary btnsign"
           (click)="onSignupWithGoogle()"
         >
           <svg

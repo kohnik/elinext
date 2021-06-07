@@ -3,7 +3,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import {map} from "rxjs/operators";
+import { map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -11,11 +12,10 @@ export class AuthService {
   public googleProvider = new firebase.auth.GoogleAuthProvider();
   public isLoggedIn = false;
   public displaySignInOrOn = false;
-  public currentUserEmailForReq!: string
-  constructor(
-    public firebaseAuth: AngularFireAuth,
-    public router: Router,
-  ) {}
+  public currentUserEmailForReq!: string;
+
+  constructor(public firebaseAuth: AngularFireAuth, public router: Router) {}
+
   signup(email: string, password: string): Promise<void> {
     return this.firebaseAuth
       .createUserWithEmailAndPassword(email, password)
@@ -24,6 +24,7 @@ export class AuthService {
         this.router.navigate(['search']);
       });
   }
+
   signin(email: string, password: string): Promise<void> {
     return this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
@@ -32,6 +33,7 @@ export class AuthService {
         this.router.navigate(['search']);
       });
   }
+
   signGoogle(): Promise<void> {
     return this.authLogin(this.googleProvider);
   }
@@ -42,6 +44,7 @@ export class AuthService {
       this.router.navigate(['search']);
     });
   }
+
   logout(): void {
     this.firebaseAuth
       .signOut()
@@ -52,13 +55,13 @@ export class AuthService {
         this.isLoggedIn = false;
       });
   }
+
   checkAuth(): Observable<firebase.User | null> {
     return this.firebaseAuth.authState.pipe(
-      map(req=>{
-        this.currentUserEmailForReq = req?.email?.replace('.','_') || '';
-        return req
+      map((req) => {
+        this.currentUserEmailForReq = req?.email?.replace('.', '_') || '';
+        return req;
       })
-    )
+    );
   }
-
 }
