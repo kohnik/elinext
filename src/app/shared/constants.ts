@@ -1,5 +1,5 @@
 import { fromEvent, merge, timer } from 'rxjs';
-import { auditTime, map } from 'rxjs/operators';
+import {auditTime, debounceTime, map} from 'rxjs/operators';
 
 export const urlForFlckrSearchPhoto = `https://www.flickr.com/services/rest/?method=flickr.photos.search&`;
 export const urlForFlckrGetTagsListPhoto = `https://www.flickr.com/services/rest/?method=flickr.tags.getListPhoto&`;
@@ -15,10 +15,12 @@ export const startOutTimeActivity = () => {
   const mousemoveEvents = fromEvent(document, 'mousemove');
   const allEvents = merge(scrollEvents, mousemoveEvents, keyEvents);
   return allEvents.pipe(
+    auditTime(1000),
     map((data) => {
       localStorage.setItem('userActivity',`${new Date().getTime()}`)
       return data
-    })
+    }),
+
   );
 };
 
