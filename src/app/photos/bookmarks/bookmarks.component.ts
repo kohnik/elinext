@@ -1,18 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataForBookmarkPhoto } from '../../shared/interface';
-import { of, Subscription } from 'rxjs';
-import {
-  auditTime,
-  debounceTime,
-  delay,
-  map,
-  repeatWhen,
-} from 'rxjs/operators';
 import { BookmarkDataService } from '../../core/services/bookmarkDatabaseService/bookmark-data.service';
-import {
-  differenceBetweenEntryAndNowTime,
-  startOutTimeActivity,
-} from '../../shared/constants';
 import { AuthService } from '../../core/services/authService/auth.service';
 
 @Component({
@@ -22,9 +10,6 @@ import { AuthService } from '../../core/services/authService/auth.service';
 })
 export class BookmarksComponent implements OnInit {
   dataForBookmarkImages!: DataForBookmarkPhoto[];
-
-  timeLastActivity = new Date().getTime();
-
   constructor(
     public bookmarkService: BookmarkDataService,
     public authService: AuthService

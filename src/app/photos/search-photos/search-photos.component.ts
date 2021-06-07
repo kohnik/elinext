@@ -25,10 +25,6 @@ export class SearchPhotosComponent implements OnInit {
   responceFlickr!: FlickrPhotos;
   receivedImages!: FlickrPhoto[];
   toDispalyImageStyle!: string;
-  //countForLoadImage = 0;
-
-
-
   constructor(
     private formBuilder: FormBuilder,
     public photoService: FlickrService,
@@ -41,8 +37,6 @@ export class SearchPhotosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
     this.reactiveSearchForm
       .get('inputSearch')
       ?.valueChanges.pipe(

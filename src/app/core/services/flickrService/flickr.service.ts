@@ -38,7 +38,6 @@ export class FlickrService {
         return this.http.get<TagsResponce>(urlForFlckrGetTagsListPhoto + paramsForTagReq);
       }
     );
-    //вопрос
     return forkJoin(arrayWithLinksForTagsReq).pipe(
       map((tag: TagsResponce[]) => {
         firstReq.photos.photo = firstReq.photos.photo.map(

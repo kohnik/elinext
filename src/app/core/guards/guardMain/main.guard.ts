@@ -26,7 +26,9 @@ export class MainGuard implements CanActivate {
     | UrlTree {
     return this.authService.checkAuth().pipe(
       map((data) => {
-        if (!!data) {
+        console.log(data)
+        if (!data) {
+          this.router.navigate(['/']);
           return !!data;
         }
         return !data;

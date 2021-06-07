@@ -1,16 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+/*import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {AsideMenuComponent} from "./aside-menu.component";
+import {HttpClient, HttpClientModule, HttpHandler} from "@angular/common/http";
+import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
+import {AuthService} from "../../core/services/authService/auth.service";
+import {BookmarkDataService} from "../../core/services/bookmarkDatabaseService/bookmark-data.service";
 
-import { AsideMenuComponent } from './aside-menu.component';
-
-describe('AsideMenuComponent', () => {
+describe('BookmarksComponent', () => {
   let component: AsideMenuComponent;
   let fixture: ComponentFixture<AsideMenuComponent>;
 
+
+  const fakeAuthService: AuthService = jasmine.createSpyObj('AuthService', [
+    'checkAuth']);
+
+  const fakeBookmarkDataService: BookmarkDataService = jasmine.createSpyObj('BookmarkDataService', [
+    'getImages']);
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AsideMenuComponent ]
+      declarations: [ AsideMenuComponent ],
+      providers: [
+        HttpTestingController,
+        HttpClient,
+        HttpHandler,
+        {
+          provide: AuthService,
+          useValue: fakeAuthService,
+        },
+        {
+          provide: BookmarkDataService,
+          useValue: fakeBookmarkDataService,
+        },
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -22,4 +44,4 @@ describe('AsideMenuComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+});*/
