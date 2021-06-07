@@ -43,10 +43,9 @@ export class SearchPhotosComponent implements OnInit {
         filter((req) => req.length > 1),
         distinctUntilChanged(),
         debounceTime(500),
-        switchMap((req) =>
-        {
+        switchMap((req) => {
           this.photoService.page = 0;
-          return this.photoService.getPhoto(req)
+          return this.photoService.getPhoto(req);
         })
       )
       .subscribe((data) => {
@@ -66,13 +65,6 @@ export class SearchPhotosComponent implements OnInit {
 
   addToBookmark(photo: FlickrPhoto): void {
     let dataForBookmarkPhotos: DataForBookmarkPhoto;
-    this.receivedImages.forEach(item =>
-    {
-      if( photo.id === item.id)
-      {
-        item.inBookmark = true
-      }
-    })
     dataForBookmarkPhotos = {
       server: photo.server,
       secret: photo.secret,
@@ -82,7 +74,6 @@ export class SearchPhotosComponent implements OnInit {
     };
     this.bookmarkService
       .addImage(dataForBookmarkPhotos)
-      .subscribe();
+      .subscribe(() => (photo.inBookmark = true));
   }
-
 }

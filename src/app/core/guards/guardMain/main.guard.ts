@@ -26,12 +26,11 @@ export class MainGuard implements CanActivate {
     | UrlTree {
     return this.authService.checkAuth().pipe(
       map((data) => {
-        console.log(data)
         if (!data) {
           this.router.navigate(['/']);
           return !!data;
         }
-        return !data;
+        return !!data;
       })
     );
   }

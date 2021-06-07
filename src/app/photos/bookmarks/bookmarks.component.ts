@@ -17,18 +17,20 @@ export class BookmarksComponent implements OnInit {
 
   ngOnInit(): void {
     this.bookmarkService.getImages().subscribe((data) => {
-      this.dataForBookmarkImages = Object.values(data);
+      if (data) {
+        this.dataForBookmarkImages = Object.values(data);
+      }
     });
   }
 
   deleteImage(image: DataForBookmarkPhoto) {
-    this.dataForBookmarkImages = this.dataForBookmarkImages.filter(
-      (item) => item.id !== image.id
-    );
     this.bookmarkService
       .deleteImage(image)
-      .subscribe((data) => console.log(data));
+      .subscribe(
+        (data) =>
+          (this.dataForBookmarkImages = this.dataForBookmarkImages.filter(
+            (item) => item.id !== image.id
+          ))
+      );
   }
-
-
 }

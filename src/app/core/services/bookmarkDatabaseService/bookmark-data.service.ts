@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {DataForBookmarkPhoto, FleckrResponse, PostImage} from '../../../shared/interface';
+import {BookmarkResponce, DataForBookmarkPhoto, FleckrResponse, PostImage} from '../../../shared/interface';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../authService/auth.service';
 import { map } from 'rxjs/operators';
@@ -13,29 +13,31 @@ export class BookmarkDataService {
   constructor(private http: HttpClient, public authService: AuthService) {}
 
   addImage(dataForBookmarkPhotos: DataForBookmarkPhoto):Observable<PostImage>{
-    return this.http.post(
+    return this.http.post<PostImage>(
       `${urlForBookmarkDatabase}${this.authService.currentUserUIDForReq}.json`,
-      dataForBookmarkPhotos) as Observable<PostImage>
+      dataForBookmarkPhotos)
   }
 
-  getImages():Observable<FleckrResponse> {
-    return this.http
-      .get(
+  getImages():Observable<BookmarkResponce> {
+    return this.http.get<BookmarkResponce>(
         `${urlForBookmarkDatabase}${this.authService.currentUserUIDForReq}.json`
       )
       .pipe(
         map((images) => {
-          // @ts-ignore
-          Object.keys(images).map(key => (images[key].idImageForDatabase = key)
-          );
+          console.log(images)
+          if(images)
+          {
+            // @ts-ignore
+            Object.keys(images).forEach(key => (images[key].idImageForDatabase = key));
+          }
           return images;
         })
-      ) as Observable<FleckrResponse>
+      )
   }
 
   deleteImage(image: DataForBookmarkPhoto):Observable<PostImage> {
-    return this.http.delete(
+    return this.http.delete<PostImage>(
       `${urlForBookmarkDatabase}${this.authService.currentUserUIDForReq}/${image.idImageForDatabase}.json`
-    ) as Observable<PostImage>
+    )
   }
 }

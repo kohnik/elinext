@@ -56,6 +56,10 @@ export interface DataForBookmarkPhoto {
   email: string;
   idImageForDatabase: string;
 }
+export interface BookmarkResponce
+{
+  key: DataForBookmarkPhoto
+}
 export interface PostImage {
   name: string;
 }
